@@ -1,0 +1,36 @@
+﻿@page "/Wordle"
+@using MyApp
+@inject HttpClient Http
+
+<WordleRow findAnswer="@find" />
+<WordleRow findAnswer="@find" />
+<WordleRow findAnswer="@find" />
+<WordleRow findAnswer="@find" />
+<WordleRow findAnswer="@find" />
+<WordleRow findAnswer="@find" />
+<h2>@show</h2>
+<button @onclick="btnShow">show</button>
+@code {
+    public string show { set; get; }
+    WordleFinderController wordleFinderController;
+    protected override async Task OnInitializedAsync()
+    {
+
+        string tmp = await Http.GetStringAsync("words.txt");
+        var dic = tmp.Split("\r\n").Where(s => 5 == s.Length).ToArray();
+        wordleFinderController = new WordleFinderController(data: dic);
+    }
+
+    private void btnShow()
+    {
+        show = string.Join(",", wordleFinderController.ListPossibleWords());
+    }
+
+
+
+    void find(string guess, string respond)
+    {
+        wordleFinderController.FindAnswer(guess, respond);
+    }
+
+}

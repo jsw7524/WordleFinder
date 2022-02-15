@@ -1,0 +1,33 @@
+﻿
+<input type="text" @onclick="SetStatusColor" class="@bColor" @bind="@ch">
+@code {
+    public string ch = "";
+    public string status = "";
+    public string bColor = "MyWhite";
+    private void SetStatusColor()
+    {
+        switch (status)
+        {
+            case "":
+                status = "w";
+                bColor = "MyWhite";
+                break;
+            case "w":
+                status = "b";
+                bColor = "MyGray";
+                break;
+            case "b":
+                status = "g";
+                bColor = "MyGreen";
+                break;
+            case "g":
+                status = "o";
+                bColor = "MyOrange";
+                break;
+            case "o":
+                status = "w";
+                bColor = "MyWhite";
+                break;
+        }
+    }
+}

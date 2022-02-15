@@ -1,0 +1,42 @@
+﻿
+
+
+<WordleCell @ref="c0" />
+<WordleCell @ref="c1" />
+<WordleCell @ref="c2" />
+<WordleCell @ref="c3" />
+<WordleCell @ref="c4" />
+<button disabled=@disabled @onclick="btnOK">OK</button>
+<h2>@wordle</h2>
+<h2>@status</h2>
+
+@code {
+
+    WordleCell c0;
+    WordleCell c1;
+    WordleCell c2;
+    WordleCell c3;
+    WordleCell c4;
+    bool disabled = false;
+    public string wordle { set; get; }
+    public string status { set; get; }
+
+    public string info { set; get; }
+
+    [Parameter]
+    public int n { get; set; }
+
+    [Parameter]
+    public Action<string,string> findAnswer { get; set; }
+
+    private void btnOK()
+    {
+        wordle = c0.ch + c1.ch + c2.ch + c3.ch + c4.ch;
+        status = c0.status + c1.status + c2.status + c3.status + c4.status;
+        disabled = true;
+        findAnswer(wordle, status);
+    }
+
+
+
+}
